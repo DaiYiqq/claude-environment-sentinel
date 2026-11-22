@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "claude-environment-sentinel"
-version = "1.0.0"
+version = "1.1.0"
 description = "Local environment audit, reversible alignment, snapshot restore and Kill-Switch companion for Claude."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
-license = { text = "MIT" }
-authors = [{ name = "DaiYiqq" }]
+license = { text = "AGPL-3.0-only" }
+authors = [{ name = "Dai Yi", email = "1703205607@qq.com" }]
 
 [project.urls]
 Homepage = "https://daiyiqq.github.io/claude-environment-sentinel/"

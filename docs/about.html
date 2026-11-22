@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#07111f">
+  <title>关于开发者 — Claude Environment Sentinel</title>
+  <meta name="description" content="Claude Environment Sentinel 的开发者、联系方式、社区共同维护方式与 AGPL-3.0 许可证说明。">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    (function () {
+      try {
+        var forced = new URLSearchParams(window.location.search).get("theme");
+        var saved = forced === "light" || forced === "dark" ? forced : localStorage.getItem("sentinel-site-theme");
+        if (saved === "light" || saved === "dark") {
+          document.documentElement.dataset.theme = saved;
+          document.documentElement.style.colorScheme = saved;
+        }
+      } catch (_error) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="返回首页">
+      <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 4 41 11v12c0 10-7 17-17 21C14 40 7 33 7 23V11L24 4Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <path d="m16 24 5 5 11-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>
+        <strong>Claude Sentinel</strong>
+        <small>Environment consistency</small>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="页面导航">
+      <a href="index.html#features">能力</a>
+      <a href="index.html#workflow">一键操作</a>
+      <a href="index.html#safety">边界</a>
+      <a href="about.html">关于</a>
+    </nav>
+    <div class="header-actions">
+      <button id="theme-toggle" class="theme-button" type="button" aria-label="切换深浅色">浅色</button>
+      <a class="button button-ghost" href="https://github.com/DaiYiqq/claude-environment-sentinel">GitHub</a>
+      <a class="button button-primary" href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">下载</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="eyebrow">ABOUT THE MAINTAINER</div>
+      <h1>关于开发者</h1>
+      <p class="lede">
+        一个由个人发起、希望由社区共同维护的本地环境一致性工具。
+        这里公开开发者联系方式、社区参与方式和许可证边界。
+      </p>
+      <div class="language-row">
+        <span>README:</span>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/README.md">简体中文</a>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/README.en.md">English</a>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/README.ja-JP.md">日本語</a>
+      </div>
+    </section>
+
+    <section class="section about-grid">
+      <article class="card profile-card">
+        <div class="profile-avatar" aria-hidden="true">亿</div>
+        <div>
+          <div class="eyebrow">FOUNDER / MAINTAINER</div>
+          <h2>戴亿 <span>Dai Yi</span></h2>
+          <p class="profile-handle">DaiYiqq · 独立开发者</p>
+          <p>
+            发起 Claude Environment Sentinel，负责审计、快照、对齐、Kill-Switch 与本地控制台的整体设计。
+            项目不是 Anthropic 官方产品，也不承诺账号结果。
+          </p>
+          <div class="profile-tags">
+            <span>本地优先</span>
+            <span>可回滚</span>
+            <span>社区共治</span>
+            <span>AGPL-3.0</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card contact-card">
+        <div class="card-head">
+          <div>
+            <div class="eyebrow">PUBLIC CONTACT</div>
+            <h3>公开联系方式</h3>
+          </div>
+        </div>
+        <div class="contact-list">
+          <a href="https://github.com/DaiYiqq" target="_blank" rel="noreferrer">
+            <span>GitHub</span>
+            <strong>@DaiYiqq</strong>
+          </a>
+          <div>
+            <span>抖音 Douyin</span>
+            <strong>daiyi091004</strong>
+          </div>
+          <a href="https://x.com/daiyi_520" target="_blank" rel="noreferrer">
+            <span>Twitter / X</span>
+            <strong>@daiyi_520</strong>
+          </a>
+          <div>
+            <span>QQ</span>
+            <strong>1703205607</strong>
+          </div>
+        </div>
+        <p class="subtle">请不要发送真实密码、Cookie、Token、完整环境快照或代理凭据。</p>
+      </article>
+    </section>
+
+    <section class="section" id="community">
+      <div class="section-heading">
+        <div class="eyebrow">COMMUNITY MAINTAINED</div>
+        <h2>社区共同维护</h2>
+        <p>代码、文档、翻译、测试、Issue 分类和安全报告都欢迎参与。</p>
+      </div>
+      <div class="grid three">
+        <a class="card link-card" href="https://github.com/DaiYiqq/claude-environment-sentinel/discussions">
+          <h3>Discussions</h3>
+          <p>使用问题、想法、翻译协作和公开讨论。</p>
+          <span>参与讨论 →</span>
+        </a>
+        <a class="card link-card" href="https://github.com/DaiYiqq/claude-environment-sentinel/issues">
+          <h3>Issues</h3>
+          <p>可复现的 Bug、功能建议和文档修正。</p>
+          <span>提交 Issue →</span>
+        </a>
+        <a class="card link-card" href="https://github.com/DaiYiqq/claude-environment-sentinel/pulls">
+          <h3>Pull Requests</h3>
+          <p>代码、测试、文档与 English / 日本語翻译。</p>
+          <span>贡献代码 →</span>
+        </a>
+      </div>
+      <div class="community-links">
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/CONTRIBUTING.md">贡献指南</a>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/GOVERNANCE.md">治理说明</a>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/CODE_OF_CONDUCT.md">行为准则</a>
+        <a href="https://github.com/DaiYiqq/claude-environment-sentinel/security/advisories/new">私密安全报告</a>
+      </div>
+    </section>
+
+    <section class="section" id="license">
+      <div class="section-heading">
+        <div class="eyebrow">CONSERVATIVE OPEN SOURCE</div>
+        <h2>AGPL-3.0-only</h2>
+        <p>从 v1.1.0 起使用保守型强 copyleft 许可证；修改、分发和网络服务都需要继续开源。</p>
+      </div>
+      <article class="card license-card">
+        <div>
+          <h3>为什么选择 AGPL？</h3>
+          <p>
+            我们希望社区修改和改进能够回馈项目，而不是被闭源分发或直接包装成不透明的网络服务。
+            AGPL 比 MIT 更保守，适合这种本地优先但又可能被集成的工具。
+          </p>
+        </div>
+        <div class="license-facts">
+          <div><span>当前版本</span><strong>AGPL-3.0-only</strong></div>
+          <div><span>v1.0.0</span><strong>MIT（历史）</strong></div>
+          <div><span>贡献授权</span><strong>AGPL-3.0-only</strong></div>
+        </div>
+        <div class="license-links">
+          <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/LICENSE">完整许可证</a>
+          <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/LICENSING.md">版本历史</a>
+          <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/LICENSE-MIT">历史 MIT</a>
+          <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/THIRD_PARTY_NOTICES.md">第三方声明</a>
+        </div>
+      </article>
+      <div class="boundary-note">
+        <strong>非官方项目：</strong>
+        Sentinel 不隶属于 Anthropic，不绕过服务端风控，不承诺账号结果。请遵守服务条款和地区可用性政策。
+      </div>
+    </section>
+
+    <section class="section download">
+      <div>
+        <div class="eyebrow">GET STARTED</div>
+        <h2>下载 Windows 便携版</h2>
+        <p>内置 CPython/Tk 运行时，不需要预装 Python。未签名构建，SmartScreen 可能提示。</p>
+      </div>
+      <div class="download-actions">
+        <a class="button button-primary button-lg" href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">前往 Releases</a>
+        <a class="button button-ghost button-lg" href="index.html">返回首页</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <strong>Claude Environment Sentinel</strong>
+      <span>Local-first environment consistency toolkit.</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">首页</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel">源码</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">Release</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/discussions">社区</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/LICENSE">AGPL-3.0</a>
+    </div>
+    <p class="footer-note">不承诺账号结果 · 不是服务端风控绕过工具 · 无遥测</p>
+    <p class="footer-copy">© <span id="year">2026</span> 戴亿 (Dai Yi / DaiYiqq). AGPL-3.0-only.</p>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>

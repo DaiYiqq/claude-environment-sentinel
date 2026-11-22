@@ -22,4 +22,10 @@ programs and are not bundled.
 
 ## Project license
 
-Sentinel itself is licensed under the MIT License; see `LICENSE`.
+Starting with v1.1.0, Sentinel itself is licensed under the
+**GNU Affero General Public License v3.0 only (AGPL-3.0-only)**; see `LICENSE`
+and `NOTICE`.
+
+The initial v1.0.0 release was published under the MIT License. That historical
+grant remains valid for copies obtained under v1.0.0; see `LICENSE-MIT` and
+`LICENSING.md`.

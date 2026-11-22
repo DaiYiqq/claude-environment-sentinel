@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and community help
+    url: https://github.com/DaiYiqq/claude-environment-sentinel/discussions
+    about: Use Discussions for setup questions, ideas and community coordination.
+  - name: Security vulnerability
+    url: https://github.com/DaiYiqq/claude-environment-sentinel/security/advisories/new
+    about: Report security issues privately. Do not open a public issue.

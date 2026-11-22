@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest a scoped improvement
+title: "[Feature]: "
+labels: ["enhancement", "needs triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What are you trying to do? Who benefits?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Keep it scoped. Mention whether it touches writes, snapshots, license or the control API.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundary check
+      options:
+        - label: This does not bypass server-side risk controls.
+          required: true
+        - label: This does not require collecting account credentials, cookies or tokens.
+          required: true
+        - label: I understand Sentinel does not guarantee account outcomes.
+          required: true

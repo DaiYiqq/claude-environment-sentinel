@@ -1,9 +1,11 @@
 # Claude Environment Sentinel
 
+[简体中文](README.md) · [English](README.en.md) · [日本語](README.ja-JP.md)
+
 **先审计，再对齐，最后才安全启动。**
 
 [![GitHub](https://img.shields.io/badge/GitHub-DaiYiqq%2Fclaude--environment--sentinel-181717?logo=github)](https://github.com/DaiYiqq/claude-environment-sentinel)
-[![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-2ea44f.svg)](LICENSE)
 [![Windows portable](https://img.shields.io/badge/Download-Windows%20portable-0f766e)](https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest)
 
 **下载：** [Windows 便携版](https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest) · **推广站：** <https://daiyiqq.github.io/claude-environment-sentinel/> · **源码：** <https://github.com/DaiYiqq/claude-environment-sentinel>
@@ -396,8 +398,8 @@ pwsh -File scripts/build_portable.ps1
 输出：
 
 ```text
-dist/Claude-Sentinel-1.0.0-win64-portable/
-dist/Claude-Sentinel-1.0.0-win64-portable.zip
+dist/Claude-Sentinel-1.1.0-win64-portable/
+dist/Claude-Sentinel-1.1.0-win64-portable.zip
 ```
 
 便携包把 CPython 运行时放在 `python/`，启动器优先使用它，不依赖系统 Python。
@@ -416,3 +418,46 @@ dist/Claude-Sentinel-1.0.0-win64-portable.zip
 - 风险指南：[`docs/anti-ban-guide.md`](docs/anti-ban-guide.md)
 
 模块 H 在原始需求消息中被截断，因此本版本先交付 A–G，并把 H 实现为低风险增强：CLI/doctor、审计历史基线、配置包导入导出基础、报告导出。没有实现后台常驻守护或服务端风控绕过。
+
+---
+
+## 14. 开发者 / Maintainer
+
+- **开发者：戴亿**（Dai Yi / DaiYiqq）
+- **GitHub**：[@DaiYiqq](https://github.com/DaiYiqq)
+- **抖音**：`daiyi091004`
+- **Twitter / X**：[@daiyi_520](https://x.com/daiyi_520)
+- **QQ**：`1703205607`
+
+这是一个非官方项目。联系开发者时请不要发送真实账号密码、Cookie、Token、
+完整环境快照或代理凭据。
+
+## 15. 社区共同维护
+
+Sentinel 欢迎社区共同维护：
+
+- **GitHub Discussions**：<https://github.com/DaiYiqq/claude-environment-sentinel/discussions>
+- **Issues**：<https://github.com/DaiYiqq/claude-environment-sentinel/issues>
+- **Pull Requests**：<https://github.com/DaiYiqq/claude-environment-sentinel/pulls>
+- **贡献指南**：[CONTRIBUTING.md](CONTRIBUTING.md)
+- **治理说明**：[GOVERNANCE.md](GOVERNANCE.md)
+- **行为准则**：[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- **安全报告**：[SECURITY.md](SECURITY.md) / GitHub Security Advisories
+- **翻译**：欢迎维护 English / 日本語 README 与文档翻译；请保留安全边界原文含义。
+
+社区贡献不会改变项目边界：不接收绕过服务端风控的功能，不接收真实账号凭据，
+不承诺账号结果。
+
+## 16. 许可证与历史版本
+
+从 **v1.1.0** 开始，项目使用 **GNU Affero General Public License v3.0 only
+（AGPL-3.0-only）**。这是保守型强 copyleft 许可证：修改和分发需要继续开源，
+通过网络服务提供修改版也需要向用户提供对应源码。
+
+- 完整许可证：[LICENSE](LICENSE)
+- 版权/保证声明：[NOTICE](NOTICE)
+- 历史版本说明：[LICENSING.md](LICENSING.md)
+- v1.0.0 曾按 MIT 发布：[LICENSE-MIT](LICENSE-MIT)
+
+v1.0.0 已经授予的 MIT 权利不可撤销；v1.1.0 起的新代码和新贡献使用 AGPL-3.0-only。
+第三方组件仍遵循各自许可证，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

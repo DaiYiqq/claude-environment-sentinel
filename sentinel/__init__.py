@@ -11,7 +11,7 @@ account outcomes.
 
 from __future__ import annotations
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 APP_NAME = "Claude Environment Sentinel"
 APP_SLOGAN = "先审计，再对齐，最后才安全启动。"
 

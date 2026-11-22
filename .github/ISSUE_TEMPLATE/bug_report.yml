@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a reproducible bug in Sentinel
+title: "[Bug]: "
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not include passwords, cookies, tokens, real IP addresses,
+        account details or complete snapshot contents.
+
+  - type: input
+    id: version
+    attributes:
+      label: Sentinel version
+      placeholder: "1.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: "Windows 11 23H2 x64"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps, including the audit/check IDs if relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Do not paste secrets or unredacted snapshots.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: write
+    attributes:
+      label: Does this involve a write operation?
+      options:
+        - "No"
+        - "Yes — alignment"
+        - "Yes — restore"
+        - "Yes — Kill-Switch / firewall"
+        - "Not sure"
+    validations:
+      required: true

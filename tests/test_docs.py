@@ -58,10 +58,57 @@ class DocumentationTests(unittest.TestCase):
 
     def test_no_absolute_claims(self) -> None:
         bad = ("保证不被封", "永久安全", "绝对防封", "百分百安全")
-        for path in (ROOT / "README.md", ROOT / "tutorials" / "quick-start.md", ROOT / "docs" / "anti-ban-guide.md"):
+        for path in (
+            ROOT / "README.md",
+            ROOT / "README.en.md",
+            ROOT / "README.ja-JP.md",
+            ROOT / "tutorials" / "quick-start.md",
+            ROOT / "docs" / "anti-ban-guide.md",
+        ):
             text = path.read_text(encoding="utf-8")
             for phrase in bad:
                 self.assertNotIn(phrase, text, msg=f"{phrase} found in {path}")
+
+    def test_multilingual_readmes_and_developer_contacts(self) -> None:
+        files = (ROOT / "README.md", ROOT / "README.en.md", ROOT / "README.ja-JP.md")
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            self.assertIn("README.en.md", text)
+            self.assertIn("README.ja-JP.md", text)
+            for marker in ("戴亿", "DaiYiqq", "daiyi091004", "daiyi_520", "1703205607"):
+                self.assertIn(marker, text, msg=f"{marker} missing from {path}")
+            self.assertIn("AGPL", text)
+
+    def test_community_and_about_pages_exist(self) -> None:
+        for name in (
+            "AUTHORS.md",
+            "GOVERNANCE.md",
+            "CODE_OF_CONDUCT.md",
+            "CONTRIBUTING.md",
+            "LICENSING.md",
+            "NOTICE",
+            "LICENSE-MIT",
+            ".github/pull_request_template.md",
+            ".github/ISSUE_TEMPLATE/bug_report.yml",
+            ".github/ISSUE_TEMPLATE/feature_request.yml",
+        ):
+            self.assertTrue((ROOT / name).is_file(), name)
+        about = (ROOT / "docs" / "about.html").read_text(encoding="utf-8")
+        for marker in ("戴亿", "daiyi091004", "daiyi_520", "1703205607", "Discussions", "AGPL"):
+            self.assertIn(marker, about)
+        home = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("about.html", home)
+        self.assertIn("AGPL 开源", home)
+        self.assertIn("AGPL-3.0", home)
+
+    def test_agpl_license_and_historical_mit(self) -> None:
+        license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+        self.assertIn("GNU AFFERO GENERAL PUBLIC LICENSE", license_text)
+        licensing = (ROOT / "LICENSING.md").read_text(encoding="utf-8")
+        self.assertIn("v1.0.0", licensing)
+        self.assertIn("MIT", licensing)
+        self.assertIn("MIT License", (ROOT / "LICENSE-MIT").read_text(encoding="utf-8"))
+        self.assertIn("AGPL-3.0-only", (ROOT / "pyproject.toml").read_text(encoding="utf-8"))
 
     def test_readme_and_layout_exist(self) -> None:
         self.assertTrue((ROOT / "README.md").is_file())

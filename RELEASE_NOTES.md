@@ -1,10 +1,10 @@
-# Claude Environment Sentinel v1.0.0
+# Claude Environment Sentinel v1.1.0
 
-首个开源的 Windows 便携版本。
+多语言、社区共治与 AGPL 许可证版本。
 
 ## 下载
 
-`Claude-Sentinel-1.0.0-win64-portable.zip`
+`Claude-Sentinel-1.1.0-win64-portable.zip`
 
 - Windows 10/11 x64；
 - 内含 CPython + Tk 运行时，不需要预装 Python；
@@ -26,5 +26,18 @@
 - 不绕过服务端风控，不承诺账号结果；
 - 不修改 hosts、内核或驱动；字体只提示，不删除；
 - 写操作只在本地执行，控制台仅绑定 127.0.0.1。
+
+## 许可证
+
+v1.1.0 起使用 **AGPL-3.0-only**。首次发布的 v1.0.0 按 MIT 发布，旧副本继续适用
+MIT；详见 `LICENSING.md`、`LICENSE`、`NOTICE` 与 `LICENSE-MIT`。
+
+## 社区
+
+- 开发者：戴亿（Dai Yi / DaiYiqq）
+- 抖音：`daiyi091004`
+- Twitter/X：[@daiyi_520](https://x.com/daiyi_520)
+- QQ：`1703205607`
+- Discussions / Issues / PR 欢迎参与。
 
 使用前请阅读 `README.md`、`SECURITY.md` 和 `docs/anti-ban-guide.md`。

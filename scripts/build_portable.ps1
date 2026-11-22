@@ -1,5 +1,5 @@
 param(
-    [string]$Version = "1.0.0",
+    [string]$Version = "1.1.0",
     [string]$OutputRoot = "",
     [string]$PythonRoot = ""
 )
@@ -35,7 +35,15 @@ foreach ($name in $dirs) {
 }
 $files = @(
     "README.md",
+    "README.en.md",
+    "README.ja-JP.md",
     "LICENSE",
+    "LICENSE-MIT",
+    "LICENSING.md",
+    "NOTICE",
+    "AUTHORS.md",
+    "GOVERNANCE.md",
+    "CODE_OF_CONDUCT.md",
     "SECURITY.md",
     "CONTRIBUTING.md",
     "CHANGELOG.md",
