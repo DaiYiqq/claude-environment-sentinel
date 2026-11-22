@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#07111f">
+  <title>Claude Environment Sentinel — 本地环境一致性工具箱</title>
+  <meta name="description" content="20 项本地环境审计、可回滚的一键对齐、历史趋势与 Kill-Switch。Windows 便携版，开源，本地优先。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Claude Environment Sentinel">
+  <meta property="og:description" content="让本地环境讲同一个故事。20 项审计、快照式一键对齐、可回滚还原与 Kill-Switch。">
+  <meta property="og:url" content="https://daiyiqq.github.io/claude-environment-sentinel/">
+  <meta property="og:image" content="https://daiyiqq.github.io/claude-environment-sentinel/assets/overview-dark.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    (function () {
+      try {
+        var forced = new URLSearchParams(window.location.search).get("theme");
+        var saved = forced === "light" || forced === "dark" ? forced : localStorage.getItem("sentinel-site-theme");
+        if (saved === "light" || saved === "dark") {
+          document.documentElement.dataset.theme = saved;
+          document.documentElement.style.colorScheme = saved;
+        }
+      } catch (_error) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Claude Environment Sentinel 首页">
+      <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 4 41 11v12c0 10-7 17-17 21C14 40 7 33 7 23V11L24 4Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <path d="m16 24 5 5 11-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>
+        <strong>Claude Sentinel</strong>
+        <small>Environment consistency</small>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="页面导航">
+      <a href="#features">能力</a>
+      <a href="#workflow">一键操作</a>
+      <a href="#safety">边界</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <button id="theme-toggle" class="theme-button" type="button" aria-label="切换深浅色">浅色</button>
+      <a class="button button-ghost" href="https://github.com/DaiYiqq/claude-environment-sentinel">GitHub</a>
+      <a class="button button-primary" href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">下载</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">LOCAL-FIRST DESKTOP TOOLKIT</div>
+        <h1>让本地环境<br><em>讲同一个故事。</em></h1>
+        <p class="lede">
+          Claude Environment Sentinel 是一个面向 Windows 的本地环境一致性工具箱：
+          20 项审计、可回滚的一键对齐、历史趋势与 Kill-Switch。
+          它不读取账号凭证，也没有遥测。
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary button-lg" href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">下载 Windows 便携版</a>
+          <a class="button button-ghost button-lg" href="https://github.com/DaiYiqq/claude-environment-sentinel">查看源码</a>
+        </div>
+        <p class="hero-note">无需预装 Python · 解压即用 · MIT 开源 · 未签名构建</p>
+        <dl class="hero-stats">
+          <div><dt>20</dt><dd>项本地审计</dd></div>
+          <div><dt>104</dt><dd>风险权重</dd></div>
+          <div><dt>0</dt><dd>遥测请求</dd></div>
+        </dl>
+      </div>
+      <div class="hero-visual">
+        <div class="shot-frame">
+          <div class="shot-bar"><span></span><span></span><span></span><small>Claude Sentinel · 本地控制台</small></div>
+          <img src="assets/overview-dark.png" alt="Claude Environment Sentinel 环境概览界面" width="1414" height="1107">
+        </div>
+        <div class="floating-card">
+          <span class="status-dot"></span>
+          <strong>先审计，再对齐</strong>
+          <small>风险 24 / 100 · 门禁禁止</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="产品原则">
+      <span>本地优先</span>
+      <span>不可变快照</span>
+      <span>逐项还原</span>
+      <span>不接触登录态</span>
+      <span>不绕过服务端风控</span>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="section-heading">
+        <div class="eyebrow">WHY IT EXISTS</div>
+        <h2>不是又一个代理工具。</h2>
+        <p>Sentinel 处理的是“本地环境画像”这一层：时区、语言、浏览器策略、出口地区与设备可见信号是否自洽。</p>
+      </div>
+      <div class="grid three">
+        <article class="card">
+          <div class="icon">01</div>
+          <h3>环境画像互相打架</h3>
+          <p>系统在亚洲、语言是中文、浏览器 Accept-Language 却来自另一个地区，出口 IP 又指向第三个地方。</p>
+        </article>
+        <article class="card">
+          <div class="icon">02</div>
+          <h3>手工改设置不可回滚</h3>
+          <p>时区、LANG/LC_ALL、浏览器策略散落在不同位置。改之前没有快照，改坏了很难逐项恢复。</p>
+        </article>
+        <article class="card">
+          <div class="icon">03</div>
+          <h3>缺少本地可验证视图</h3>
+          <p>很多“优化”靠感觉。Sentinel 把证据、原始采样值、历史变化和门禁原因摊开给你看。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-heading">
+        <div class="eyebrow">WHAT IT DOES</div>
+        <h2>审计、对齐、还原，闭环。</h2>
+        <p>桌面版和本地浏览器控制台共享同一套审计、对齐和快照引擎。</p>
+      </div>
+      <div class="grid three feature-grid">
+        <article class="card feature">
+          <span class="tag">A</span>
+          <h3>20 项审计 + 风险分</h3>
+          <p>时区、语言、Node/Electron、出口 IP、代理/TUN、DNS、WebRTC、浏览器策略、时钟偏差与漂移基线。</p>
+        </article>
+        <article class="card feature">
+          <span class="tag">B</span>
+          <h3>可逆一键对齐</h3>
+          <p>B1 时区、B2 LANG/LC_ALL、B3 Chrome/Edge 策略；系统时区修改必须显式确认。</p>
+        </article>
+        <article class="card feature">
+          <span class="tag">C</span>
+          <h3>快照与逐项还原</h3>
+          <p>写入前创建带 SHA-256 的不可变快照；还原时原本不存在的变量会被删除，不是置空。</p>
+        </article>
+        <article class="card feature">
+          <span class="tag">D</span>
+          <h3>Kill-Switch</h3>
+          <p>安全启动后监控出口、代理内核与 TUN；异常时终止进程树、阻断出站并锁定，直到手动解除。</p>
+        </article>
+        <article class="card feature">
+          <span class="tag">E</span>
+          <h3>环境配置包</h3>
+          <p>按场景保存时区、语言、浏览器策略和代理标签；绝不保存密码、Cookie、Token 或会话文件。</p>
+        </article>
+        <article class="card feature">
+          <span class="tag">F</span>
+          <h3>历史与风险分解</h3>
+          <p>Web 控制台提供历史对比、趋势、风险分解、推荐处置、导出 JSON 与打印/PDF。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="workflow">
+      <div class="split-media">
+        <div class="shot-frame light-frame">
+          <div class="shot-bar"><span></span><span></span><span></span><small>操作 · 对齐与还原</small></div>
+          <img src="assets/actions-light.png" alt="一键对齐与一键还原操作界面" width="1414" height="1107" loading="lazy">
+        </div>
+      </div>
+      <div class="split-copy">
+        <div class="eyebrow">ONE CLICK, WITH A WAY BACK</div>
+        <h2>一键修改，也一键还原。</h2>
+        <p>对齐不是“点一下就跑”。它先创建快照，再逐项写入，最后复检相关审计项。</p>
+        <ol class="steps">
+          <li><span>1</span><div><strong>先检测</strong><small>确认出口地区、目标时区与当前冲突项。</small></div></li>
+          <li><span>2</span><div><strong>创建快照并对齐</strong><small>时区、语言、浏览器策略；系统时区单独确认。</small></div></li>
+          <li><span>3</span><div><strong>失败也能回退</strong><small>撤销上次对齐、还原最近快照，或从列表选择。</small></div></li>
+        </ol>
+        <div class="mini-code"><code>python -m sentinel console --verbose</code><span>或双击 ClaudeSentinel.exe</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="safety">
+      <div class="section-heading">
+        <div class="eyebrow">BOUNDARIES</div>
+        <h2>把能做的和不能做的，说清楚。</h2>
+        <p>降低可避免的本地环境冲突，不承诺账号结果。</p>
+      </div>
+      <div class="grid two safety-grid">
+        <article class="card safety-card good">
+          <h3>会做</h3>
+          <ul>
+            <li>审计本机可见环境信号并给出可验证证据</li>
+            <li>在写入前创建不可变快照</li>
+            <li>写入前二次确认；Web 写接口带 token 与 Host/Origin 校验</li>
+            <li>还原时逐项验证，并给出手动命令</li>
+          </ul>
+        </article>
+        <article class="card safety-card bad">
+          <h3>不会做</h3>
+          <ul>
+            <li>不读取或保存 Claude 登录态、Cookie、Token、会话文件</li>
+            <li>不修改 hosts、内核或驱动，不删除字体</li>
+            <li>不绕过服务端风控，不保证账号不被限制</li>
+            <li>不把机房 IP 变成住宅 IP，也不改变你的操作行为</li>
+          </ul>
+        </article>
+      </div>
+      <div class="boundary-note">
+        <strong>一句话边界：</strong>
+        Sentinel 只让本地环境更自洽。账号结果由 IP 质量、账号历史、行为模式、服务端评分与政策共同决定，本地工具无法承诺结果。
+      </div>
+    </section>
+
+    <section class="section download" id="download">
+      <div>
+        <div class="eyebrow">GET STARTED</div>
+        <h2>Windows 便携版，解压即用。</h2>
+        <p>内置 CPython/Tk 运行时，不需要预装 Python。未签名构建，SmartScreen 可能提示未知发布者。</p>
+      </div>
+      <div class="download-actions">
+        <a class="button button-primary button-lg" href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">前往 Releases 下载</a>
+        <a class="button button-ghost button-lg" href="https://github.com/DaiYiqq/claude-environment-sentinel#readme">阅读 README</a>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-heading">
+        <div class="eyebrow">FAQ</div>
+        <h2>常见问题</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>需要安装 Python 吗？</summary>
+          <p>使用 Windows 便携版不需要。便携包内含运行时。从源码运行才需要 Python 3.10+ 和 Tkinter。</p>
+        </details>
+        <details>
+          <summary>会读取 Claude 的登录信息吗？</summary>
+          <p>不会。Sentinel 不读取 Claude 登录态、Cookie、Token、会话文件或浏览器账号资料；它只读取环境变量、系统时区、浏览器语言/WebRTC 策略、网络元数据和客户端版本。</p>
+        </details>
+        <details>
+          <summary>能保证账号不被封吗？</summary>
+          <p>不能。Sentinel 只降低本地环境画像冲突这一层可避免风险，不承诺账号结果，也不是服务端风控的绕过工具。</p>
+        </details>
+        <details>
+          <summary>修改设置安全吗？</summary>
+          <p>对齐前会创建不可变快照，还原时逐项写回；原本不存在的环境变量会被删除。系统时区和防火墙操作需要管理员权限。</p>
+        </details>
+        <details>
+          <summary>开源协议是什么？</summary>
+          <p>MIT License。源码、Issue 和 Release 都在 GitHub：<a href="https://github.com/DaiYiqq/claude-environment-sentinel">DaiYiqq/claude-environment-sentinel</a>。</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <strong>Claude Environment Sentinel</strong>
+      <span>Local-first environment consistency toolkit.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel">源码</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/releases/latest">Release</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/docs/anti-ban-guide.md">风险指南</a>
+      <a href="https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/LICENSE">MIT</a>
+    </div>
+    <p class="footer-note">不承诺账号结果 · 不是服务端风控绕过工具 · 无遥测</p>
+    <p class="footer-copy">© <span id="year">2026</span> DaiYiqq. Built with Python + Tkinter.</p>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>

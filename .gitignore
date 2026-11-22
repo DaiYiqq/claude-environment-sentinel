@@ -1,0 +1,34 @@
+# Runtime data: never commit these.
+backups/*
+!backups/.gitkeep
+logs/*
+!logs/.gitkeep
+state/*
+!state/.gitkeep
+profiles/*
+!profiles/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Built launchers and release artifacts
+ClaudeSentinel.exe
+dist/
+release/
+*.zip
+*.bak
+*.bak.*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Claude Environment Sentinel · 本地控制台</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <script src="/static/theme-init.js?v=1.11.0"></script>
+  <link rel="stylesheet" href="/static/style.css?v=1.11.0">
+</head>
+<body class="booting">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 4 41 11v12c0 10-7 17-17 21C14 40 7 33 7 23V11L24 4Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+            <path d="m16 24 5 5 11-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Claude Sentinel</div>
+          <div class="brand-sub">Environment consistency</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="overview"><span>01</span>概览</button>
+        <button class="nav-item" data-view="audit"><span>02</span>审计结果</button>
+        <button class="nav-item" data-view="history"><span>03</span>历史</button>
+        <button class="nav-item" data-view="actions"><span>04</span>操作</button>
+        <button class="nav-item" data-view="snapshots"><span>05</span>快照</button>
+        <button class="nav-item" data-view="profiles"><span>06</span>环境配置包</button>
+        <button class="nav-item" data-view="console"><span>07</span>控制台</button>
+        <button class="nav-item" data-view="tutorial"><span>08</span>新手教程</button>
+        <button class="nav-item" data-view="guide"><span>09</span>风险指南</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="dot"></span>
+        <div>
+          <strong>本地控制 · 写操作需确认</strong>
+          <p>对齐/还原会先创建快照；启动 Claude 与 Kill-Switch 仍在桌面版。</p>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <span id="app-version">v1.0.0</span>
+        <span>localhost only</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">LOCAL DESKTOP COMPANION</div>
+          <h1 id="page-title">环境概览</h1>
+        </div>
+        <div class="topbar-right">
+          <button id="theme-toggle" class="chip chip-button" type="button" title="切换昼夜模式">深色模式</button>
+          <span id="mode-chip" class="chip chip-preview"><span class="pulse"></span>本地控制 · 需确认</span>
+          <span class="chip" id="platform-chip">Windows</span>
+          <span class="chip" id="admin-chip">权限检测中</span>
+        </div>
+      </header>
+
+      <div id="latch-banner" class="banner banner-danger hidden">
+        <strong>Kill-Switch 已锁定</strong>
+        <span>安全启动被禁止，防火墙规则仍然存在。请到桌面版专家模式手动解除。</span>
+      </div>
+
+      <section id="view-overview" class="view active">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">SYSTEM STATUS · 本地环境诊断</div>
+            <h2>环境一致性 · 实时审计读数</h2>
+            <p>
+               Sentinel 检查时区、语言、Node/Electron 可见环境、出口地区、代理/TUN、DNS、
+               WebRTC 与浏览器策略。这里展示的是本机真实审计数据。
+            </p>
+            <div class="hero-actions">
+              <button id="run-audit" class="button button-primary">运行检测</button>
+              <button id="hero-align" class="button button-ghost">一键对齐</button>
+              <button id="refresh-status" class="button button-ghost">刷新状态</button>
+              <span class="subtle" id="audit-time">尚未检测</span>
+            </div>
+          </div>
+          <div class="hero-badge">
+            <div class="hero-badge-icon">◎</div>
+            <div>
+              <div class="eyebrow">LOCAL CONTROL</div>
+              <strong>真实数据 · 受控写入</strong>
+              <p>写操作需二次确认并先创建快照</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-overview">
+          <article class="card risk-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">RISK SCORE</div>
+                <h3>环境风险分</h3>
+              </div>
+              <span class="badge" id="risk-level">等待检测</span>
+            </div>
+            <div class="risk-body">
+              <div class="gauge-wrap">
+                <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="gauge-track" cx="60" cy="60" r="50"></circle>
+                  <circle id="gauge-value" class="gauge-value" cx="60" cy="60" r="50"></circle>
+                </svg>
+                <div class="gauge-text">
+                  <strong id="risk-score">—</strong>
+                  <span>/ 100</span>
+                </div>
+              </div>
+              <div class="risk-meta">
+                <div class="metric"><span>通过</span><strong id="count-pass">—</strong></div>
+                <div class="metric"><span>警告</span><strong id="count-warn">—</strong></div>
+                <div class="metric"><span>失败</span><strong id="count-fail">—</strong></div>
+                <div class="metric"><span>异常</span><strong id="count-error">—</strong></div>
+              </div>
+            </div>
+            <div class="gate-box" id="gate-box">
+              <span class="gate-dot"></span>
+              <div>
+                <strong id="gate-title">等待检测</strong>
+                <p id="gate-reason">点击“运行检测”后显示安全启动门禁。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">NETWORK EXIT</div>
+                <h3>出口画像</h3>
+              </div>
+              <span class="badge" id="egress-source">—</span>
+            </div>
+            <dl class="kv">
+              <div><dt>出口 IP</dt><dd id="egress-ip">—</dd></div>
+              <div><dt>国家 / 地区</dt><dd id="egress-country">—</dd></div>
+              <div><dt>ASN / 组织</dt><dd id="egress-org">—</dd></div>
+              <div><dt>IP 类型</dt><dd id="egress-type">—</dd></div>
+              <div><dt>出口时区</dt><dd id="egress-timezone">—</dd></div>
+              <div><dt>系统时区</dt><dd id="system-timezone">—</dd></div>
+            </dl>
+          </article>
+
+          <article class="card wide-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">TOP FINDINGS</div>
+                <h3>需要先看的问题</h3>
+              </div>
+              <button class="text-button" id="top-findings-link" data-view-link="audit">查看全部 20 项 →</button>
+            </div>
+            <div id="top-findings" class="finding-list">
+              <div class="empty-state">等待审计结果…</div>
+            </div>
+          </article>
+
+          <article class="card preview-note">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">DESKTOP APP</div>
+                <h3>桌面版负责启动与急停</h3>
+              </div>
+            </div>
+            <p>
+              浏览器控制台可以执行“一键对齐”和“还原快照”，写入前会先创建快照。
+              “安全启动”和 Kill-Switch 解除，请双击项目的 <code>ClaudeSentinel.exe</code>。
+            </p>
+            <div class="path-row">
+              <span>桌面版</span>
+              <code id="desktop-path">正在检查…</code>
+            </div>
+            <p class="subtle">
+              本地控制台只绑定 127.0.0.1；不会向局域网或互联网暴露。
+            </p>
+          </article>
+
+          <article class="card trend-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">STABILITY TREND</div>
+                <h3>风险趋势</h3>
+              </div>
+              <span class="badge" id="trend-label">暂无历史</span>
+            </div>
+            <div class="trend-body">
+              <svg id="trend-chart" class="trend-chart" viewBox="0 0 640 100" preserveAspectRatio="none" aria-label="历史风险分趋势">
+                <defs>
+                  <linearGradient id="trend-fill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.28"/>
+                    <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path id="trend-area" class="trend-area" d=""></path>
+                <polyline id="trend-line" class="trend-line" points=""></polyline>
+              </svg>
+              <div id="trend-meta" class="trend-meta">
+                <span>运行桌面版检测后开始积累历史。</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card full-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">RISK BREAKDOWN</div>
+                <h3>风险分解</h3>
+              </div>
+              <span class="badge" id="breakdown-total">等待检测</span>
+            </div>
+            <p class="subtle">按本地环境类别汇总失败/警告项的权重，不改变审计分。</p>
+            <div id="risk-breakdown" class="breakdown-grid">
+              <div class="empty-state">运行检测后显示分类贡献。</div>
+            </div>
+          </article>
+
+          <article class="card full-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">STABILITY INSIGHT</div>
+                <h3>稳定性洞察</h3>
+              </div>
+              <span class="badge" id="stability-label">样本不足</span>
+            </div>
+            <div id="stability-insights" class="stability-grid">
+              <div class="empty-state">至少需要两次历史记录才能观察变化。</div>
+            </div>
+            <p class="subtle">
+              这些数字只描述本地历史波动；不预测账号结果，也不替代 IP 质量与行为判断。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="view-audit" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">A1 — A20</div>
+            <h2>完整审计结果</h2>
+            <p class="subtle">每项都包含状态、证据行和原始采样值。点击任意行查看详情。</p>
+          </div>
+          <div class="toolbar">
+            <input id="audit-search" class="search-input" type="search" placeholder="搜索 ID / 标题 / 摘要" aria-label="搜索审计项">
+            <select id="status-filter" aria-label="按状态筛选">
+              <option value="all">全部状态</option>
+              <option value="fail">仅失败</option>
+              <option value="warn">仅警告</option>
+              <option value="pass">仅通过</option>
+            </select>
+            <button id="audit-export" class="button button-ghost">导出 JSON</button>
+            <button id="audit-print" class="button button-ghost">打印 / PDF</button>
+            <button id="audit-refresh" class="button button-primary">重新检测</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>状态</th>
+                <th>权重</th>
+                <th>阻断</th>
+                <th>审计项</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table">
+              <tr><td colspan="5" class="empty-cell">还没有审计结果。</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="detail-panel" class="detail-panel hidden">
+          <div class="detail-head">
+            <div>
+              <div class="eyebrow" id="detail-id">A1</div>
+              <h3 id="detail-title">选择一项</h3>
+            </div>
+            <button id="detail-close" class="icon-button" aria-label="关闭详情">×</button>
+          </div>
+          <p id="detail-summary" class="detail-summary"></p>
+          <div class="detail-grid">
+            <div>
+              <h4>证据行</h4>
+              <pre id="detail-evidence" class="code-block"></pre>
+            </div>
+            <div>
+              <h4>原始采样值</h4>
+              <pre id="detail-raw" class="code-block"></pre>
+            </div>
+          </div>
+          <h4>通俗解释</h4>
+          <p id="detail-explanation" class="explanation"></p>
+        </div>
+      </section>
+
+      <section id="view-history" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">AUDIT TIMELINE</div>
+            <h2>历史与对比</h2>
+            <p class="subtle">查看最近审计、出口变化和风险波动；选择一条记录与当前结果逐项对比。</p>
+          </div>
+          <div class="toolbar">
+            <select id="history-filter" aria-label="筛选历史记录">
+              <option value="all">全部记录</option>
+              <option value="blocked">门禁禁止</option>
+              <option value="allowed">门禁允许</option>
+            </select>
+            <button id="history-export" class="button button-ghost">导出历史 JSON</button>
+            <button id="history-refresh" class="button button-primary">刷新历史</button>
+          </div>
+        </div>
+
+        <div class="history-stats">
+          <article class="card stat-card">
+            <span>记录数</span>
+            <strong id="history-count">0</strong>
+          </article>
+          <article class="card stat-card">
+            <span>门禁阻断</span>
+            <strong id="history-blocked">—</strong>
+          </article>
+          <article class="card stat-card">
+            <span>出口国家变化</span>
+            <strong id="history-countries">—</strong>
+          </article>
+          <article class="card stat-card">
+            <span>平均风险</span>
+            <strong id="history-avg">—</strong>
+          </article>
+        </div>
+
+        <div class="table-card">
+          <table class="data-table">
+            <thead>
+              <tr><th>时间</th><th>风险</th><th>门禁</th><th>出口</th><th>失败</th><th>警告</th><th>来源</th></tr>
+            </thead>
+            <tbody id="history-table">
+              <tr><td colspan="7" class="empty-cell">还没有历史。桌面版或 CLI 完整检测后会积累记录。</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="history-diff" class="detail-panel hidden">
+          <div class="detail-head">
+            <div>
+              <div class="eyebrow" id="history-diff-id">历史对比</div>
+              <h3 id="history-diff-title">选择一条历史记录</h3>
+            </div>
+            <button id="history-diff-close" class="icon-button" aria-label="关闭对比">×</button>
+          </div>
+          <p id="history-diff-meta" class="detail-summary"></p>
+          <div class="diff-columns">
+            <div>
+              <h4>改善</h4>
+              <div id="diff-improved" class="diff-list"><span class="subtle">无</span></div>
+            </div>
+            <div>
+              <h4>恶化 / 新增</h4>
+              <div id="diff-regressed" class="diff-list"><span class="subtle">无</span></div>
+            </div>
+          </div>
+          <p id="history-diff-note" class="subtle"></p>
+        </div>
+      </section>
+
+      <section id="view-actions" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">CONTROLLED WRITES</div>
+            <h2>操作</h2>
+            <p class="subtle">一键对齐或还原。每次写入前创建不可变快照；系统时区与浏览器策略会明确提示。</p>
+          </div>
+          <span id="action-mode-badge" class="badge">控制模式</span>
+        </div>
+
+        <div id="action-readonly-banner" class="banner banner-info hidden">
+          <strong>只读模式</strong>
+          <span>当前服务以 --read-only 启动，不能执行对齐或还原。请重启控制台或使用桌面版。</span>
+        </div>
+        <div id="action-no-report" class="banner banner-info hidden">
+          <strong>先检测</strong>
+          <span>没有可用的出口/时区目标。请先运行检测，再执行一键对齐。</span>
+        </div>
+
+        <div class="action-grid">
+          <article class="card action-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">ALIGN</div>
+                <h3>一键对齐当前环境</h3>
+              </div>
+              <span id="action-admin-badge" class="badge">权限未知</span>
+            </div>
+            <p class="subtle">
+              复用桌面版同一对齐引擎：先创建快照，再写 B1 时区、B2 语言、B3 浏览器策略，最后复检相关审计项。
+            </p>
+            <div class="target-grid">
+              <div><span>目标国家/地区</span><strong id="action-country">—</strong></div>
+              <div><span>目标时区</span><strong id="action-timezone">—</strong></div>
+              <div><span>目标 locale</span><strong id="action-locale">—</strong></div>
+              <div><span>Accept-Language</span><strong id="action-accept">—</strong></div>
+            </div>
+            <div class="action-buttons">
+              <button id="open-align-dialog" class="button button-primary" disabled>创建快照并一键对齐</button>
+              <button id="quick-browser" class="button button-ghost" disabled>仅浏览器策略</button>
+            </div>
+            <p class="subtle">
+              系统时区修改需要管理员权限；浏览器策略通常需要重启浏览器后生效。
+            </p>
+          </article>
+
+          <article class="card action-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">RESTORE</div>
+                <h3>一键还原</h3>
+              </div>
+              <span id="restore-count" class="badge">0 个快照</span>
+            </div>
+            <p class="subtle">
+              还原会逐项写回快照原始值；原本不存在的环境变量会被删除，而不是设成空字符串。
+            </p>
+            <div class="restore-actions">
+              <button id="undo-align" class="button button-primary" disabled>撤销上次对齐</button>
+              <button id="restore-latest" class="button button-ghost" disabled>还原最近快照</button>
+            </div>
+            <label class="field-label" for="restore-select">选择快照</label>
+            <select id="restore-select" class="restore-select" disabled>
+              <option value="">暂无快照</option>
+            </select>
+            <button id="restore-selected" class="button button-ghost" disabled>还原所选快照</button>
+            <p id="restore-hint" class="subtle">快照会保留，不会因为还原而被删除。</p>
+          </article>
+        </div>
+
+        <article id="action-result" class="card action-result hidden">
+          <div class="card-head">
+            <div>
+              <div class="eyebrow">RESULT</div>
+              <h3 id="action-result-title">操作结果</h3>
+            </div>
+            <span id="action-result-badge" class="badge">—</span>
+          </div>
+          <div id="action-result-meta" class="action-result-meta"></div>
+          <div id="action-items" class="action-items"></div>
+          <div id="action-failures" class="action-failures"></div>
+          <button id="action-undo-snapshot" class="button button-danger hidden">还原此快照</button>
+        </article>
+
+        <article class="card action-safety">
+          <strong>安全边界</strong>
+          <p>
+            写接口仅绑定 127.0.0.1，并要求一次性控制 token、二次确认和合法 Host/Origin。
+            不提供启动 Claude、停止 Claude 或解除 Kill-Switch 的网页接口。
+            对齐只降低本地环境画像冲突，不承诺账号结果。
+          </p>
+        </article>
+      </section>
+
+      <section id="view-console" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">LIVE DIAGNOSTICS</div>
+            <h2>控制台</h2>
+            <p class="subtle">详细但克制：先看摘要、事件流和下一步建议；需要时再进入审计页看证据。</p>
+          </div>
+          <div class="toolbar">
+            <button id="console-run" class="button button-primary">运行检测</button>
+            <button id="console-refresh" class="button button-ghost">刷新</button>
+          </div>
+        </div>
+
+        <div class="console-metrics">
+          <article class="card metric-card">
+            <div class="eyebrow">RISK</div>
+            <strong id="console-risk">—</strong>
+            <span id="console-gate">等待检测</span>
+          </article>
+          <article class="card metric-card">
+            <div class="eyebrow">EXIT</div>
+            <strong id="console-country">—</strong>
+            <span id="console-ip">—</span>
+          </article>
+          <article class="card metric-card">
+            <div class="eyebrow">COUNTRY LOCK</div>
+            <strong id="console-lock">未开启</strong>
+            <span id="console-lock-target">可选功能</span>
+          </article>
+        </div>
+
+        <div class="console-layout">
+          <article class="console-card">
+            <div class="console-head">
+              <span class="console-dot"></span>
+              <span>sentinel://preview</span>
+              <span id="console-status">idle</span>
+            </div>
+            <div id="console-log" class="console-log" aria-live="polite">
+              <div class="console-line muted-line">等待第一次检测…</div>
+            </div>
+          </article>
+          <article class="card recommendation-card">
+            <div class="card-head">
+              <div>
+                <div class="eyebrow">NEXT BEST ACTION</div>
+                <h3>建议下一步</h3>
+              </div>
+              <button id="copy-summary" class="text-button">复制摘要</button>
+            </div>
+            <div id="console-recommendations" class="recommendation-list">
+              <div class="empty-state">运行检测后生成有优先级的建议。</div>
+            </div>
+            <p class="subtle">
+              建议只用于减少可控制的环境冲突；不承诺账号结果，也不自动修改设置。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="view-snapshots" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">IMMUTABLE BACKUPS</div>
+            <h2>环境快照</h2>
+            <p class="subtle">快照文件带 SHA-256 校验和；可在“操作”页还原，或到桌面版快照标签处理。</p>
+          </div>
+          <button id="snapshots-refresh" class="button button-ghost">刷新</button>
+        </div>
+        <div class="table-card">
+          <table class="data-table">
+            <thead>
+              <tr><th>快照 ID</th><th>创建时间</th><th>标签</th><th>修改项</th></tr>
+            </thead>
+            <tbody id="snapshot-table">
+              <tr><td colspan="4" class="empty-cell">还没有快照。桌面版执行对齐时会自动创建。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-profiles" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">ENVIRONMENT ONLY</div>
+            <h2>多环境配置包</h2>
+            <p class="subtle">只保存环境配置，不保存任何登录凭证、Cookie、Token 或会话文件。</p>
+          </div>
+          <button id="profiles-refresh" class="button button-ghost">刷新</button>
+        </div>
+        <div class="banner banner-info">
+          <strong>隐私边界</strong>
+          <span>切换账号需要你在 Claude 内自行完成登录切换；Sentinel 不接触身份材料。</span>
+        </div>
+        <div class="table-card">
+          <table class="data-table">
+            <thead>
+              <tr><th>名称</th><th>期望出口</th><th>时区</th><th>代理标签</th><th>当前</th></tr>
+            </thead>
+            <tbody id="profile-table">
+              <tr><td colspan="5" class="empty-cell">还没有环境配置包。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-tutorial" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">QUICK START</div>
+            <h2>新手教程</h2>
+            <p class="subtle">与桌面版内嵌教程一致，面向没有打开过终端的用户。</p>
+          </div>
+        </div>
+        <article id="tutorial-content" class="markdown-card"><div class="empty-state">正在加载教程…</div></article>
+      </section>
+
+      <section id="view-guide" class="view">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">RISK LITERACY</div>
+            <h2>防封 / 风险指南</h2>
+            <p class="subtle">独立风险认知文档：IP 质量、一致性、行为模式、新号/老号与条款边界。</p>
+          </div>
+        </div>
+        <article id="guide-content" class="markdown-card"><div class="empty-state">正在加载风险指南…</div></article>
+      </section>
+
+      <footer class="page-footer">
+        <span>Claude Environment Sentinel · 本地优先</span>
+        <span>不承诺账号结果，不是服务端风控的绕过工具。</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog id="align-dialog" class="action-dialog">
+    <form id="align-form" method="dialog">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow">ALIGN WITH SNAPSHOT</div>
+          <h3>确认一键对齐</h3>
+        </div>
+        <button id="align-cancel-x" class="icon-button" type="button" aria-label="关闭">×</button>
+      </div>
+      <div id="align-target-summary" class="dialog-target"></div>
+      <div class="dialog-options">
+        <label class="check-row">
+          <input id="align-timezone" type="checkbox" checked>
+          <span><strong>B1 用户级时区</strong><small>写入用户级 TZ</small></span>
+        </label>
+        <label class="check-row">
+          <input id="align-language" type="checkbox" checked>
+          <span><strong>B2 语言</strong><small>写入 LANG / LC_ALL</small></span>
+        </label>
+        <label class="check-row">
+          <input id="align-browser" type="checkbox" checked>
+          <span><strong>B3 浏览器策略</strong><small>Accept-Language + WebRTC；通常需要重启浏览器</small></span>
+        </label>
+        <label class="check-row" id="align-system-row">
+          <input id="align-system-timezone" type="checkbox" checked>
+          <span><strong>同时修改系统时区</strong><small>全局修改，需要管理员权限</small></span>
+        </label>
+      </div>
+      <div class="dialog-note">
+        Sentinel 会先创建不可变快照，再写入设置；失败也会保留快照用于还原。
+        不承诺账号结果，也不提供启动 Claude 或解除 Kill-Switch。
+      </div>
+      <label class="check-row understand-row">
+        <input id="align-understood" type="checkbox">
+        <span><strong>我理解会修改本机环境设置，并已知道快照位置。</strong></span>
+      </label>
+      <div id="align-error" class="dialog-error hidden"></div>
+      <div class="dialog-actions">
+        <button id="align-submit" class="button button-primary" type="button">创建快照并执行</button>
+        <button id="align-cancel" class="button button-ghost" type="button">取消</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="loading" class="loading hidden" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <div>
+      <strong id="loading-title">正在检测…</strong>
+      <p id="loading-detail">读取时区、网络、DNS、WebRTC、浏览器策略和 Node 环境。</p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/app.js?v=1.11.0"></script>
+</body>
+</html>

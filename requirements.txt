@@ -1,0 +1,8 @@
+# Claude Environment Sentinel has no mandatory third-party runtime dependency.
+# The GUI uses Tkinter, which ships with CPython on Windows and macOS.
+#
+# Optional, only for a stronger WebRTC candidate inspection:
+# aiortc>=1.9
+#
+# Install nothing to run the tool:
+#   python -m sentinel

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-environment-sentinel"
+version = "1.0.0"
+description = "Local environment audit, reversible alignment, snapshot restore and Kill-Switch companion for Claude."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+license = { text = "MIT" }
+authors = [{ name = "DaiYiqq" }]
+
+[project.urls]
+Homepage = "https://daiyiqq.github.io/claude-environment-sentinel/"
+Repository = "https://github.com/DaiYiqq/claude-environment-sentinel"
+Issues = "https://github.com/DaiYiqq/claude-environment-sentinel/issues"
+Changelog = "https://github.com/DaiYiqq/claude-environment-sentinel/blob/main/CHANGELOG.md"
+
+[project.scripts]
+sentinel = "sentinel.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["sentinel*"]
+
+[tool.setuptools.package-data]
+sentinel = ["webui/*"]
